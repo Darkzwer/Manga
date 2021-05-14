@@ -11,12 +11,12 @@ import Foundation
 struct SearchResponse: Decodable {
     //var resultCount: Int//request_cache_expiry
     
-    var characters: [Track]
+    var characters: [track]
     
     //var results: [Track]//top /MangaData or just Manga need to change this var to top
 }
 
-struct Track: Decodable {//MangaData or just Manga
+struct track: Decodable {//MangaData or just Manga
     
     //var trackName: String
     //var collectionName: String?

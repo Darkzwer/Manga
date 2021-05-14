@@ -71,7 +71,7 @@ import UIKit
 //    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 //        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CustomCollectionViewCell
 //        
-//        cell.nameLabl.text = HeroInfo[indexPath.row].localized_name.capitalized//check this string
+//        cell.nameLabel.text = HeroInfo[indexPath.row].localized_name.capitalized//check this string
 //        
 //        let defaultLink = ("https://api.opendota.com")//image link part
 //        let completeLink = defaultLink + HeroInfo[indexPath.row].img//image link full
