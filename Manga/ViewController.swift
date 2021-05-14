@@ -10,6 +10,27 @@ import UIKit
 import Foundation
 import Alamofire
 
+extension UIImageView {//extension for downloading images
+    func downloaded(from url: URL, contentMode mode: ContentMode = .scaleAspectFit) {
+        contentMode = mode
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard
+                let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
+                let mimeType = response?.mimeType, mimeType.hasPrefix("image"),
+                let data = data, error == nil,
+                let image = UIImage(data: data)
+                else { return }
+            DispatchQueue.main.async() { [weak self] in
+                self?.image = image
+            }
+            }.resume()
+    }
+    func downloaded(from link: String, contentMode mode: ContentMode = .scaleAspectFit) {
+        guard let url = URL(string: link) else { return }
+        downloaded(from: url, contentMode: mode)
+    }
+}
+
 class ViewController: UIViewController, UICollectionViewDataSource {
     
     //var HeroInfo = [track]()
@@ -32,7 +53,7 @@ class ViewController: UIViewController, UICollectionViewDataSource {
         //let urlString = "https://api.jikan.moe/v3/top/manga/3"//my api link
         //let urlString = "https://itunes.apple.com/search?term=jack+johnson&limit=25"//api link by apple to search data need to add \(searchText) without jack+johnson
         timer?.invalidate()//1:15:27
-        timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { (timer) in self.networkService.request(urlString: urlString) { [weak self] (searchResponse, error) in
+        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (timer) in self.networkService.request(urlString: urlString) { [weak self] (searchResponse, error) in
 //            self?.searchResponse = searchResponse//or down string its about printing data
                 searchResponse?.characters.map({(track) in//MangaResponce?.top.map({ (title) in
                     self?.collectionView.reloadData()
@@ -54,7 +75,10 @@ class ViewController: UIViewController, UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CustomCollectionViewCell
         //let track = SearchResponse.init(characters: [track])
         cell.nameLabel.text = searchResponse?.characters[indexPath.row].name.capitalized
-        let imageLink = searchResponse?.characters[indexPath.row].image_url.capitalized
+        //var imageLink = searchResponse?.characters[indexPath.row].image_url.capitalized
+        //cell.imageView = searchResponse?.characters[indexPath.row].image_url.capitalized
+        
+        let imageLink = searchResponse?.characters[indexPath.row].image_url
         cell.imageView.downloaded(from: imageLink!)
         cell.imageView.clipsToBounds = true//imageView из аутлета текста в CustomCollectionViewCell
         cell.imageView.layer.cornerRadius = cell.imageView.frame.height / 2
@@ -73,27 +97,6 @@ class ViewController: UIViewController, UICollectionViewDataSource {
 //        return cell
 //    }
 //}
-
-extension UIImageView {//extension for downloading images
-    func downloaded(from url: URL, contentMode mode: ContentMode = .scaleAspectFit) {
-        contentMode = mode
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            guard
-                let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
-                let mimeType = response?.mimeType, mimeType.hasPrefix("image"),
-                let data = data, error == nil,
-                let image = UIImage(data: data)
-                else { return }
-            DispatchQueue.main.async() { [weak self] in
-                self?.image = image
-            }
-        }.resume()
-    }
-    func downloaded(from link: String, contentMode mode: ContentMode = .scaleAspectFit) {
-        guard let url = URL(string: link) else { return }
-        downloaded(from: url, contentMode: mode)
-    }
-}
 
 //func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //    performSegue(withIdentifier: "showDetails", sender: self)//"showDetails" its identetifaer from 2->3 Screen on storybord
