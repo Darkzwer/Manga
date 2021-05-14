@@ -110,7 +110,6 @@
 		78B861FD264AEDF900F8B4F9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				78CBECCD264AA68E00C6AA2E /* SearchResponse.swift */,
 				7895C79B2647F7FC00DAEF99 /* CustomCollectionViewCell.swift */,
 				78EA5C7B264D665F00FC31FD /* Pull to Refresh.swift */,
 				7886B58C264E89A000602FDF /* ExtendedScreenViewController.swift */,
@@ -122,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				78B861FB264AE99300F8B4F9 /* NetworkService.swift */,
+				78CBECCD264AA68E00C6AA2E /* SearchResponse.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
