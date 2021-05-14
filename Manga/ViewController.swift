@@ -52,7 +52,7 @@ class ViewController: UIViewController, UICollectionViewDataSource {
         let track = searchResponse?.results[indexPath.row]//1:15:27
         //print("track?.artworkUrl60:", track?.artworkUrl60)//вывод изображений при запросе
         //print("track?.collectionName:", track?.collectionName)//вывод названий при запросе
-        cell.nameLabl?.text = track?.trackName//nameLabl из аутлета текста в CustomCollectionViewCell
+        cell.nameLabel?.text = track?.trackName//nameLabl из аутлета текста в CustomCollectionViewCell
         return cell
         }
     }

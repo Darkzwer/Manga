@@ -112,10 +112,10 @@
             </objects>
             <point key="canvasLocation" x="1043.4782608695652" y="133.92857142857142"/>
         </scene>
-        <!--View Controller-->
+        <!--Extended Screen View Controller-->
         <scene sceneID="ttb-D8-pts">
             <objects>
-                <viewController id="qAG-GE-GvR" sceneMemberID="viewController">
+                <viewController id="qAG-GE-GvR" customClass="ExtendedScreenViewController" customModule="Manga" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8P3-yP-gUk">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
