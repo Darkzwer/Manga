@@ -9,25 +9,25 @@
 import Foundation
 
 struct SearchResponse: Decodable {
-    var resultCount: Int//request_cache_expiry
-    var results: [Track]//top /MangaData or just Manga need to change this var to top
+    //var resultCount: Int//request_cache_expiry
+    var characters: [Track]
+    //var results: [Track]//top /MangaData or just Manga need to change this var to top
 }
 
 struct Track: Decodable {//MangaData or just Manga
-    var trackName: String
-    var collectionName: String?
-    var artistName: String
-    var artworkUrl60: String?
-    /*
-    var rank: Int?
-    var title: String
-    var url: String
-    var type: String?
-    var volumes: Int?
-    var start_date: String?
-    var end_date: String?
-    var members: Int?
-    var score: Int?
-    var image_url: String
-    */
+    //var trackName: String
+    //var collectionName: String?
+    //var artistName: String
+    //var artworkUrl60: String?
+    
+    var name: String
+//    var rank: Int?
+//    var url: String
+//    var type: String?
+//    var volumes: Int?
+//    var start_date: String?
+//    var end_date: String?
+//    var members: Int?
+//    var score: Int?
+//    var image_url: String
 }

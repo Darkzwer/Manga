@@ -26,33 +26,33 @@ class ViewController: UIViewController, UICollectionViewDataSource {
         //setupTableView()//вызов TableView()
         //setupSearchBar()//вызов SearchBar()
         
-        //let urlString = "https://api.jikan.moe/v3/top/manga/"//my api link
+        let urlString = "https://api.jikan.moe/v3/manga/1/characters"//my api link
         
-        let urlString = "https://itunes.apple.com/search?term=jack+johnson&limit=25"//api link by apple to search data need to add \(searchText) without jack+johnson
+        //let urlString = "https://itunes.apple.com/search?term=jack+johnson&limit=25"//api link by apple to search data need to add \(searchText) without jack+johnson
         timer?.invalidate()//1:15:27
-        timer = Timer.scheduledTimer(withTimeInterval: 4, repeats: false, block: { (_) in self.networkService.request(urlString: urlString) { [weak self] (searchResponse, error) in
+        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in self.networkService.request(urlString: urlString) { [weak self] (searchResponse, error) in
 //            self?.searchResponse = searchResponse//or down string its about printing data
-                searchResponse?.results.map({(track) in//MangaResponce?.top.map({ (title) in
+                searchResponse?.characters.map({(track) in//MangaResponce?.top.map({ (title) in
                     self?.collectionView.reloadData()
-                    print(track.trackName)//print(manga.title)//вывод изображений
-                    print(track.artworkUrl60)//вывод изображений
-                    print(track.artistName)
-                    print(track.collectionName)
+                    print(track.name)//print(manga.title)//вывод изображений
+                    //print(track.artworkUrl60)//вывод изображений
+                    //print(track.artistName)
+                    //print(track.collectionName)
                 })
             }
         })
 }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return searchResponse?.results.count ?? 0//count of results
+        return searchResponse?.characters.count ?? 0//count of results
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CustomCollectionViewCell
-        let track = searchResponse?.results[indexPath.row]//1:15:27
+        let track = searchResponse?.characters[indexPath.row]//1:15:27
         //print("track?.artworkUrl60:", track?.artworkUrl60)//вывод изображений при запросе
         //print("track?.collectionName:", track?.collectionName)//вывод названий при запросе
-        cell.nameLabel?.text = track?.trackName//nameLabl из аутлета текста в CustomCollectionViewCell
+        //cell.nameLabel?.text = track?.title//nameLabl из аутлета текста в CustomCollectionViewCell
         return cell
         }
     }
