@@ -21,13 +21,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!//collection view outlet
     
     let searchController = UISearchController(searchResultsController: nil)//my searchController
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        //setupTableView
-        setupSearchBar()//вызов SearchBar()
-    }
-}
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
@@ -55,20 +48,6 @@ URLSession.shared.dataTask(with: url) { (data, response, error) in
         print(someString ?? "no data")
     }
     }.resume()//или запрос не будет обработан
-
-private func setupSearchBar() {//visualsetupSearchBar()
-    navigationItem.searchController = searchController
-    searchController.searchBar.delegate = self
-    navigationController?.navigationBar.prefersLargeTitles = true
-    searchController.obscuresBackgroundDuringPresentation = false
-}
-
-private func setupTableView() {//i need to change it to CollectionView later
-    table.delegate = self
-    table.dataSource = self
-    table.register(UITableViewCell.self, forCellReuseIndetifier: "cell")
-    return cell
-}
 
 extension ViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

@@ -71,13 +71,13 @@ import UIKit
 //    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 //        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CustomCollectionViewCell
 //        
-//        cell.nameLabel.text = HeroInfo[indexPath.row].localized_name.capitalized//check this string
+//        cell.nameLabl.text = HeroInfo[indexPath.row].localized_name.capitalized//check this string
 //        
 //        let defaultLink = ("https://api.opendota.com")//image link part
 //        let completeLink = defaultLink + HeroInfo[indexPath.row].img//image link full
 //        
 //        cell.imageView.downloaded(from: completeLink)//image link
-//        cell.imageView.clipsToBounds = true
+//        cell.imageView.clipsToBounds = true//imageView из аутлета текста в CustomCollectionViewCell
 //        cell.imageView.layer.cornerRadius = cell.imageView.frame.height / 2
 //        cell.imageView.contentMode = .scaleAspectFill
 //        return cell
