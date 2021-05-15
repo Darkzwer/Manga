@@ -9,33 +9,29 @@
 import Foundation
 
 struct SearchResponse: Decodable {
-    //var resultCount: Int//request_cache_expiry
-    
-    var characters: [track]
-    
-    //var results: [Track]//top /MangaData or just Manga need to change this var to top
+    //var request_cached: Bool//request_cache_expiry
+    //var characters: [track]
+    var top: [track]
 }
 
 struct track: Decodable {//MangaData or just Manga
-    
-    //var trackName: String
-    //var collectionName: String?
-    //var artistName: String
-    //var artworkUrl60: String?
-    
-    var name: String
     var mal_id: Int
-    
-//    var rank: Int?
-    
+    var rank: Int
+    var title: String
     var url: String
-    var role: String
-//    var type: String?
-//    var volumes: Int?
-//    var start_date: String?
-//    var end_date: String?
-//    var members: Int?
-//    var score: Int?
-    
+    var type: String
+    var volumes: Int?
+    var start_date: String
+    var end_date: String?
+    var members: Int
+    var score: Float
     var image_url: String
 }
+
+//struct track: Decodable {
+//    var mal_id: Int
+//    var url: String
+//    var image_url: String
+//    var name: String
+//    var role: String
+//}
