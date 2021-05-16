@@ -18,6 +18,8 @@ class ViewController: UIViewController, UICollectionViewDataSource {
     private var timer: Timer?//Объявление таймера
     
     let searchController = UISearchController(searchResultsController: nil)//создание search controller
+    
+    let refresh = UIRefreshControl()//создание refreshControl
 
     @IBOutlet weak var collectionView: UICollectionView!////аутлет collection view
     
@@ -25,15 +27,17 @@ class ViewController: UIViewController, UICollectionViewDataSource {
         super.viewDidLoad()
         
         collectionView.dataSource = self//вызов collectionView()
-        //setupTableView()//вызов TableView()
+        collectionView.refreshControl = refresh//вызов refreshControl()
+        
         //setupSearchBar()//вызов SearchBar()
+        //setupTableView()//вызов TableView()
         
         //let urlString = "https://api.jikan.moe/v3/manga/1/characters"//my api link
-        let urlString = "https://api.jikan.moe/v3/top/manga/1"//my api link
+        let urlString = "https://api.jikan.moe/v3/top/manga/2"//my api link
         //let urlString = "https://itunes.apple.com/search?term=jack+johnson&limit=25"//api link by apple to search data need to add \(searchText) without jack+johnson
         
         timer?.invalidate()//1:15:27
-        timer = Timer.scheduledTimer(withTimeInterval: 4, repeats: false, block: { (timer) in self.networkService.request(urlString: urlString) { [weak self] (searchResponse, error) in
+        timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false, block: { (timer) in self.networkService.request(urlString: urlString) { [weak self] (searchResponse, error) in
 //            self?.searchResponse = searchResponse//or down string its about printing data
                 searchResponse?.top.map({(track) in//MangaResponce?.top.map({ (title) in
                     self?.searchResponse = searchResponse//its very impotans string пристваивание свойству данных???
@@ -46,6 +50,10 @@ class ViewController: UIViewController, UICollectionViewDataSource {
             }
         })
 }
+    
+     /*
+     // MARK: - CollectionView Data
+     */
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return searchResponse?.top.count ?? 0//count of results may be correct
@@ -65,38 +73,6 @@ class ViewController: UIViewController, UICollectionViewDataSource {
         return cell
         }
     }
-
-extension UIImageView {//extension for downloading images
-    func downloaded(from url: URL, contentMode mode: ContentMode = .scaleAspectFit) {
-        contentMode = mode
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            guard
-                let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
-                let mimeType = response?.mimeType, mimeType.hasPrefix("image"),
-                let data = data, error == nil,
-                let image = UIImage(data: data)
-                else { return }
-            DispatchQueue.main.async() { [weak self] in
-                self?.image = image
-            }
-            }.resume()
-    }
-    func downloaded(from link: String, contentMode mode: ContentMode = .scaleAspectFit) {
-        guard let url = URL(string: link) else { return }
-        downloaded(from: url, contentMode: mode)
-    }
-}
-
-//extension ViewController: UICollectionView {//являются аналогами экстеншена из поиска только для коллекции
-//
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return 25
-//}
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        return cell
-//    }
-//}
 
 //func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //    performSegue(withIdentifier: "showDetails", sender: self)//"showDetails" its identetifaer from 2->3 Screen on storybord

@@ -8,6 +8,7 @@ use_frameworks!
 # Pods for Manga
 
 pod 'Alamofire'
+#pod 'ResponseDetective'
 
 end
 
