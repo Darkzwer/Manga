@@ -11,10 +11,10 @@ import Foundation
 struct SearchResponse: Decodable {
     //var request_cached: Bool//request_cache_expiry
     //var characters: [track]
-    var top: [track]
+    var top: [Manga]
 }
 
-struct track: Decodable {//MangaData or just Manga
+struct Manga: Decodable {//MangaData or just Manga
     var mal_id: Int
     var rank: Int
     var title: String
