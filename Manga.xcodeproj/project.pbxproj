@@ -111,8 +111,8 @@
 			isa = PBXGroup;
 			children = (
 				7895C79B2647F7FC00DAEF99 /* CustomCollectionViewCell.swift */,
-				78EA5C7B264D665F00FC31FD /* Pull to Refresh.swift */,
 				7886B58C264E89A000602FDF /* ExtendedScreenViewController.swift */,
+				78EA5C7B264D665F00FC31FD /* Pull to Refresh.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";

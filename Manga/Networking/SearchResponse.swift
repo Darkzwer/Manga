@@ -28,7 +28,7 @@ struct track: Decodable {//MangaData or just Manga
     var image_url: String
 }
 
-//struct track: Decodable {
+//struct track: Decodable {//struct for characters
 //    var mal_id: Int
 //    var url: String
 //    var image_url: String

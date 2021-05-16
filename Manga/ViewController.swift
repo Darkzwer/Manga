@@ -10,16 +10,19 @@ import UIKit
 import Foundation
 import Alamofire
 
-class ViewController: UIViewController, UICollectionViewDataSource {
+class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
     //var HeroInfo = [track]()
-    let networkService = NetworkService()//Ссылка на свифт файл
+    let networkService = NetworkService()//Инициализация функции NetworkService через присваивание
+    let extendedScreenViewController = ExtendedScreenViewController()//Инициализация ExtendedScreenViewController через присваивание
     var searchResponse: SearchResponse? = nil//Ссылка на свифт файл раньше было var и серч респонс был перемещен из моделей в нетворкинг
     private var timer: Timer?//Объявление таймера
     
     let searchController = UISearchController(searchResultsController: nil)//создание search controller
     
     let refresh = UIRefreshControl()//создание refreshControl
+    
+    var pageNumber = 2//создание variable for pagination
 
     @IBOutlet weak var collectionView: UICollectionView!////аутлет collection view
     
@@ -27,17 +30,18 @@ class ViewController: UIViewController, UICollectionViewDataSource {
         super.viewDidLoad()
         
         collectionView.dataSource = self//вызов collectionView()
+        collectionView.delegate = self
         collectionView.refreshControl = refresh//вызов refreshControl()
         
         //setupSearchBar()//вызов SearchBar()
         //setupTableView()//вызов TableView()
         
         //let urlString = "https://api.jikan.moe/v3/manga/1/characters"//my api link
-        let urlString = "https://api.jikan.moe/v3/top/manga/2"//my api link
+        let urlString = "https://api.jikan.moe/v3/top/manga/\(pageNumber)"//my api link
         //let urlString = "https://itunes.apple.com/search?term=jack+johnson&limit=25"//api link by apple to search data need to add \(searchText) without jack+johnson
         
         timer?.invalidate()//1:15:27
-        timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false, block: { (timer) in self.networkService.request(urlString: urlString) { [weak self] (searchResponse, error) in
+        timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false, block: { (timer) in self.networkService.request(urlString: urlString) { [weak self] (searchResponse, error) in
 //            self?.searchResponse = searchResponse//or down string its about printing data
                 searchResponse?.top.map({(track) in//MangaResponce?.top.map({ (title) in
                     self?.searchResponse = searchResponse//its very impotans string пристваивание свойству данных???
@@ -73,6 +77,10 @@ class ViewController: UIViewController, UICollectionViewDataSource {
         return cell
         }
     }
+
+//func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//    performSegue(withIdentifier: "showDetails", sender: self)
+//}//may be correct
 
 //func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //    performSegue(withIdentifier: "showDetails", sender: self)//"showDetails" its identetifaer from 2->3 Screen on storybord
