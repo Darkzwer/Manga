@@ -11,22 +11,7 @@ import Foundation
 import Alamofire
 
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
-    
-//    var table = [[1,2,3], [4,5,6], [7,8,9]]
-    var jsondata = SearchResponse.init(top: [])//may be i need this string
-//    var table = [[SearchResponse]].self
-    
-    
-    
-    var mangas = [Manga]()//
-    
-    
-    
-//    var HeroInfo1 = [Manga]()
-//    var HeroInfo2 = [top]()
-//    var data: [Manga]! = []//var for search
-    
-    //var mangaData = [[Manga]]()//хранит содержимое Manga могу предположить что хранить многомерные массивы данных так нельзя ибо при получении доступа к нему данных там не будет
+    var mangas = [Manga]()//var for jsonData
     
     //var pullToRefresh = PullToRefresh()
     
@@ -44,7 +29,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         return refreshControl
     }()
     
-    var pageNumber = 1//создание variable for pagination
+    var pageNumber = 2//создание variable for pagination
 
     @IBOutlet weak var collectionView: UICollectionView!////аутлет collection view
     
@@ -69,13 +54,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             //var data = SearchResponse.self
             self?.collectionView.reloadData()
                 print(self?.mangas.count)
-            //var data = searchResponse
-            //var AnyData = anyData
-                //var HeroInfo = self?.HeroInfo
-                
-                //var HeroInfo1 = [Manga]()
-                //var data: [Manga]! = []//var for search
-                print("Hero name is \(anyData.title)")//print(manga.name)//вывод в консоль
+                print("Title name is \(anyData.title)")//print(manga.name)//вывод в консоль
                 })//searchResponse?.top.map({
             }//networkService.request(urlString: urlString) {
         }//override func viewDidLoad() {
@@ -91,14 +70,14 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CustomCollectionViewCell
         
-        //cell.nameLabel.text = mangaData[indexPath.row].title.capitalized
-        cell.nameLabel.text = searchResponse?.top[indexPath.row].title.capitalized
+        cell.nameLabel.text = mangas[indexPath.row].title.capitalized
+        //cell.nameLabel.text = searchResponse?.top[indexPath.row].title.capitalized
         
-        //let imageLink = mangaData[indexPath.row].image_url
-        let imageLink = searchResponse?.top[indexPath.row].image_url
+        let imageLink = mangas[indexPath.row].image_url
+        //let imageLink = searchResponse?.top[indexPath.row].image_url
         
-        //cell.imageView.downloaded(from: imageLink)
-        cell.imageView.downloaded(from: imageLink!)
+        cell.imageView.downloaded(from: imageLink)
+        //cell.imageView.downloaded(from: imageLink!)
         
         cell.imageView.clipsToBounds = true//imageView из аутлета текста в CustomCollectionViewCell
         cell.imageView.layer.cornerRadius = cell.imageView.frame.height / 2
@@ -109,8 +88,12 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         return cell
     }
     
+     /*
+     // MARK: - Pull to Refresh
+     */
+    
     @objc func refresh(sender: UIRefreshControl) {//refresh controll i need to closue func in this
-        pageNumber+=1
+        //pageNumber+=1//for pagination
         self.collectionView.reloadData()
         sender.endRefreshing()
         print(pageNumber)
@@ -118,19 +101,14 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         networkService.request(urlString: urlString) { [weak self] (searchResponse, error) in
             self?.searchResponse = searchResponse//its very impotans string отвечает за хранение данных
             searchResponse?.top.map({(anyData) in//иерархия доступа к данным
-                //self?.searchResponse = searchResponse
                 //self?.handleLoadedImage(data: data, response: response)//for cached
                 self?.collectionView.reloadData()
-                //var AnyData = anyData
                 print("Hero name is \(anyData.title)")//print(manga.name)//вывод в консоль
                 print("Image URL is \(anyData.image_url)")//вывод в консоль
                 print("Start Date is \(anyData.start_date)")//вывод в консоль
                 print("Score is \(anyData.score)")//вывод в консоль
                 print("Count of members is \(anyData.members)")
                 print("Manga rank is \(anyData.rank)")
-//                print(data)
-//                print(HeroInfo.count)
-//                print(HeroInfo1.count)
             })//searchResponse?.top.map({
         }//networkService.request(urlString: urlString) {
     }
