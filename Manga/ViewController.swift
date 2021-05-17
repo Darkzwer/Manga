@@ -32,11 +32,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     var pageNumber = 2//создание variable for pagination
 
     @IBOutlet weak var collectionView: UICollectionView!////аутлет collection view
+    @IBOutlet weak var searchBar: UISearchBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //self.searchResponse = HeroInfo
         collectionView.refreshControl = myRefreshControl //подгрузка refreshControl()
         collectionView.dataSource = self//вызов collectionView()
         collectionView.delegate = self
