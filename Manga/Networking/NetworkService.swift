@@ -13,6 +13,7 @@ class NetworkService {
     func request(urlString: String, completion: @escaping (SearchResponse?, Error?) -> Void) {
         guard let url = URL(string: urlString) else { return }//or use ! on url! parametr
         URLSession.shared.dataTask(with: url) { (data, response, error) in
+            
             DispatchQueue.main.async {
                 if let error = error { //or if let error = error
                     print("Parse Error")

@@ -101,11 +101,14 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         cell.imageView.clipsToBounds = true//imageView из аутлета текста в CustomCollectionViewCell
         cell.imageView.layer.cornerRadius = cell.imageView.frame.height / 2
         cell.imageView.contentMode = .scaleAspectFill
+        
+        //cell.imageView.set = searchResponse?.top[indexPath.row].image_url
+        
         return cell
     }
     
     @objc func refresh(sender: UIRefreshControl) {//refresh controll i need to closue func in this
-        //pageNumber+=1
+        pageNumber+=1
         self.collectionView.reloadData()
         sender.endRefreshing()
         print(pageNumber)
@@ -114,6 +117,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             self?.searchResponse = searchResponse//its very impotans string отвечает за хранение данных
             searchResponse?.top.map({(anyData) in//иерархия доступа к данным
                 //self?.searchResponse = searchResponse
+                //self?.handleLoadedImage(data: data, response: response)//for cached
                 self?.collectionView.reloadData()
                 //var AnyData = anyData
                 print("Hero name is \(anyData.title)")//print(manga.name)//вывод в консоль
