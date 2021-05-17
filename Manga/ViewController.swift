@@ -10,8 +10,9 @@ import UIKit
 import Foundation
 import Alamofire
 
-class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
-    var mangas = [Manga]()//var for jsonData
+class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate {
+    var mangasArray = [Manga]()//var for jsonData
+    var currentMangasArray = [Manga]()//update collection
     
     //var pullToRefresh = PullToRefresh()
     
@@ -40,40 +41,49 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         collectionView.refreshControl = myRefreshControl //подгрузка refreshControl()
         collectionView.dataSource = self//вызов collectionView()
         collectionView.delegate = self
-        
-        //setupSearchBar()//вызов SearchBar()
+        setUpSearchBar()//вызов SearchBar()
         //setupTableView()//вызов TableView()
         
         let urlString = "https://api.jikan.moe/v3/top/manga/\(pageNumber)"//my api link
         
         networkService.request(urlString: urlString) { [weak self] (searchResponse, error) in
             self?.searchResponse = searchResponse//its very impotans string отвечает за хранение данных
-            self?.mangas = searchResponse!.top//
+            self?.mangasArray = searchResponse!.top//
             searchResponse?.top.map({(anyData) in//иерархия доступа к данным
             //self?.searchResponse = searchResponse
             //var data = SearchResponse.self
             self?.collectionView.reloadData()
-                print(self?.mangas.count)
+                print(self?.mangasArray.count)
                 print("Title name is \(anyData.title)")//print(manga.name)//вывод в консоль
                 })//searchResponse?.top.map({
             }//networkService.request(urlString: urlString) {
         }//override func viewDidLoad() {
     
+    private func setUpMangas() {
+        currentMangasArray = mangasArray
+    }
+    
+    private func setUpSearchBar() {
+        searchBar.delegate = self
+    }
+    
      /*
      // MARK: - CollectionView Data
      */
     
+    // Collection
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return searchResponse?.top.count ?? 0//count of results - correct
+        return mangasArray.count
+        //return searchResponse?.top.count ?? 0//count of results - correct
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CustomCollectionViewCell
         
-        cell.nameLabel.text = mangas[indexPath.row].title.capitalized
+        cell.nameLabel.text = mangasArray[indexPath.row].title.capitalized
         //cell.nameLabel.text = searchResponse?.top[indexPath.row].title.capitalized
         
-        let imageLink = mangas[indexPath.row].image_url
+        let imageLink = mangasArray[indexPath.row].image_url
         //let imageLink = searchResponse?.top[indexPath.row].image_url
         
         cell.imageView.downloaded(from: imageLink)
@@ -86,6 +96,21 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         //cell.imageView.set = searchResponse?.top[indexPath.row].image_url
         
         return cell
+    }
+    
+     /*
+     // MARK: - SearchBar
+     */
+    
+    //search bar
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        currentMangasArray = mangasArray.filter({ manga -> Bool in
+            guard let text = searchBar.text else { return false }
+            return manga.title.contains(text)
+        })
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
     }
     
      /*
