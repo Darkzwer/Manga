@@ -31,7 +31,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         return refreshControl
     }()
     
-    var pageNumber = 2//создание variable for pagination
+    var pageNumber = 1//создание variable for pagination
 
     @IBOutlet weak var collectionView: UICollectionView!////аутлет collection view
     @IBOutlet weak var searchBar: UISearchBar!
@@ -44,8 +44,12 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         collectionView.delegate = self
         //setupTableView()//вызов TableView()
         
+        //loadingcell
+        let loadingNib = UINib(nibName: "LoadingCell", bundle: nil)
+        collectionView.register(loadingNib, forCellWithReuseIdentifier: "loadingCell")
+        //url link
         let urlString = "https://api.jikan.moe/v3/top/manga/\(pageNumber)"//my api link
-        
+        //network request
         networkService.request(urlString: urlString) { [weak self] (searchResponse, error) in
             self?.searchResponse = searchResponse//its very impotans string отвечает за хранение данных
             self?.mangasArray = searchResponse!.top//Заполнение массива для вывода, данными
@@ -140,19 +144,23 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func beginBatchFetch() {
+        let urlString = "https://api.jikan.moe/v3/top/manga/\(pageNumber)"
         fetchingMore = true
-        print("begin fetching")
         pageNumber+=1
-        print(pageNumber)
-        print(self.items)
+        
         //fetchingAPI data here!!!
+        networkService.request(urlString: urlString) { (response, error) in
+        }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {//timer 1 second
-            let newItems = (self.items.count...self.items.count + 12).map { index in index}
-            self.items.append(contentsOf: newItems)
+            //let newItems = (self.items.count...self.items.count + 12).map { index in index}
+            //let newManga = (self.mangasArray.count).map { index in index }
+            //self.mangasArray.append(contentsOf: newManga)
+            //let urlString = "https://api.jikan.moe/v3/top/manga/\(pageNumber)"
+            //networkService.request(urlString: urlString) { (response, error) in
+            let newManga = self.searchResponse!.top//передача данных для хранения
+            self.currentMangasArray.append(contentsOf: newManga)//добавление данных в конец массива
             self.fetchingMore = false
-//            print(self.items)
-            print(newItems)
             self.collectionView.reloadData()
         })
     }
