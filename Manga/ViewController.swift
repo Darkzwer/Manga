@@ -13,7 +13,8 @@ import Alamofire
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate {
     var mangasArray = [Manga]()//var for jsonData
     var currentMangasArray = [Manga]()//update collection
-    
+    var items = [0, 1, 2, 3, 4, 5]//new data
+    var fetchingMore = false
     //var pullToRefresh = PullToRefresh()
     
     let networkService = NetworkService()//Инициализация функции NetworkService через присваивание необходимо для разделения кода по классам
@@ -111,11 +112,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
 //            currentMangasArray = mangasArray
 //        case 1:
 //            currentMangasArray = mangasArray.filter({ manga -> Bool in
-//                manga.rank == AnimalType.dog
+//                manga.rank == AnimeType.manga
 //            })
 //        case 2:
 //            currentMangasArray = mangasArray.filter({ manga -> Bool in
-//                manga.score == AnimalType.cat
+//                manga.score == AnimeType.anime
 //            })
 //        default:
 //            break
@@ -126,6 +127,36 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
      /*
      // MARK: - Pull to Refresh
      */
+    
+    //pagination
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHight = scrollView.contentSize.height
+        if offsetY > contentHight - scrollView.frame.height {
+            if !fetchingMore {
+                beginBatchFetch()
+            }
+        }
+    }
+    
+    func beginBatchFetch() {
+        fetchingMore = true
+        print("begin fetching")
+        pageNumber+=1
+        print(pageNumber)
+        print(self.items)
+        //fetchingAPI data here!!!
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {//timer 1 second
+            let newItems = (self.items.count...self.items.count + 12).map { index in index}
+            self.items.append(contentsOf: newItems)
+            self.fetchingMore = false
+//            print(self.items)
+            print(newItems)
+            self.collectionView.reloadData()
+        })
+    }
+//}in video
     
     @objc func refresh(sender: UIRefreshControl) {//refresh controll i need to closue func in this
         //pageNumber+=1//for pagination
