@@ -73,17 +73,17 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     // Collection
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return mangasArray.count
+        return currentMangasArray.count
         //return searchResponse?.top.count ?? 0//count of results - correct
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CustomCollectionViewCell
         
-        cell.nameLabel.text = mangasArray[indexPath.row].title.capitalized
+        cell.nameLabel.text = currentMangasArray[indexPath.row].title.capitalized
         //cell.nameLabel.text = searchResponse?.top[indexPath.row].title.capitalized
         
-        let imageLink = mangasArray[indexPath.row].image_url
+        let imageLink = currentMangasArray[indexPath.row].image_url
         //let imageLink = searchResponse?.top[indexPath.row].image_url
         
         cell.imageView.downloaded(from: imageLink)
@@ -104,13 +104,33 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     //search bar
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard !searchText.isEmpty else {
+            currentMangasArray = mangasArray
+            collectionView.reloadData()
+            return
+        }
         currentMangasArray = mangasArray.filter({ manga -> Bool in
-            guard let text = searchBar.text else { return false }
-            return manga.title.contains(text)
+            manga.title.lowercased().contains(searchText.lowercased())
         })
+        collectionView.reloadData()
     }
     
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+//        switch selectedScope {
+//        case 0:
+//            currentMangasArray = mangasArray
+//        case 1:
+//            currentMangasArray = mangasArray.filter({ manga -> Bool in
+//                manga.rank == AnimalType.dog
+//            })
+//        case 2:
+//            currentMangasArray = mangasArray.filter({ manga -> Bool in
+//                manga.score == AnimalType.cat
+//            })
+//        default:
+//            break
+//        }
+//        collectionView.reloadData()
     }
     
      /*
