@@ -15,7 +15,13 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
 //    var table = [[1,2,3], [4,5,6], [7,8,9]]
     var jsondata = SearchResponse.init(top: [])//may be i need this string
 //    var table = [[SearchResponse]].self
-//    var HeroInfo = [SearchResponse]()
+    
+    
+    
+    var mangas = [Manga]()//
+    
+    
+    
 //    var HeroInfo1 = [Manga]()
 //    var HeroInfo2 = [top]()
 //    var data: [Manga]! = []//var for search
@@ -57,23 +63,19 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         networkService.request(urlString: urlString) { [weak self] (searchResponse, error) in
             self?.searchResponse = searchResponse//its very impotans string отвечает за хранение данных
+            self?.mangas = searchResponse!.top//
             searchResponse?.top.map({(anyData) in//иерархия доступа к данным
             //self?.searchResponse = searchResponse
             //var data = SearchResponse.self
             self?.collectionView.reloadData()
+                print(self?.mangas.count)
             //var data = searchResponse
             //var AnyData = anyData
                 //var HeroInfo = self?.HeroInfo
-                var HeroInfo1 = [Manga]()
-                var data: [Manga]! = []//var for search
-                    print("Hero name is \(anyData.title)")//print(manga.name)//вывод в консоль
-                    print("Image URL is \(anyData.image_url)")//вывод в консоль
-                    print("Start Date is \(anyData.start_date)")//вывод в консоль
-                    print("Score is \(anyData.score)")//вывод в консоль
-                    print("Count of members is \(anyData.members)")
-                    print("Manga rank is \(anyData.rank)")
-                print(self?.jsondata.top.count)
-
+                
+                //var HeroInfo1 = [Manga]()
+                //var data: [Manga]! = []//var for search
+                print("Hero name is \(anyData.title)")//print(manga.name)//вывод в консоль
                 })//searchResponse?.top.map({
             }//networkService.request(urlString: urlString) {
         }//override func viewDidLoad() {

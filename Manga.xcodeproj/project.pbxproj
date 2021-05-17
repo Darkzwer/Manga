@@ -123,8 +123,8 @@
 			isa = PBXGroup;
 			children = (
 				78B861FB264AE99300F8B4F9 /* NetworkService.swift */,
-				78CBECCD264AA68E00C6AA2E /* SearchResponse.swift */,
 				7836ACBA2652800E00153B43 /* WebImageView.swift */,
+				78CBECCD264AA68E00C6AA2E /* SearchResponse.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
