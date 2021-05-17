@@ -37,18 +37,18 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setUpSearchBar()//вызов SearchBar()
         collectionView.refreshControl = myRefreshControl //подгрузка refreshControl()
         collectionView.dataSource = self//вызов collectionView()
         collectionView.delegate = self
-        setUpSearchBar()//вызов SearchBar()
         //setupTableView()//вызов TableView()
         
         let urlString = "https://api.jikan.moe/v3/top/manga/\(pageNumber)"//my api link
         
         networkService.request(urlString: urlString) { [weak self] (searchResponse, error) in
             self?.searchResponse = searchResponse//its very impotans string отвечает за хранение данных
-            self?.mangasArray = searchResponse!.top//
+            self?.mangasArray = searchResponse!.top//Заполнение массива для вывода, данными
+            self?.currentMangasArray = searchResponse!.top//Заполнение массива для фильтрации(поиска), данными
             searchResponse?.top.map({(anyData) in//иерархия доступа к данным
             //self?.searchResponse = searchResponse
             //var data = SearchResponse.self
@@ -74,27 +74,17 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     // Collection
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return currentMangasArray.count
-        //return searchResponse?.top.count ?? 0//count of results - correct
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CustomCollectionViewCell
-        
+        let imageLink = currentMangasArray[indexPath.row].image_url
         cell.nameLabel.text = currentMangasArray[indexPath.row].title.capitalized
         //cell.nameLabel.text = searchResponse?.top[indexPath.row].title.capitalized
-        
-        let imageLink = currentMangasArray[indexPath.row].image_url
-        //let imageLink = searchResponse?.top[indexPath.row].image_url
-        
         cell.imageView.downloaded(from: imageLink)
-        //cell.imageView.downloaded(from: imageLink!)
-        
         cell.imageView.clipsToBounds = true//imageView из аутлета текста в CustomCollectionViewCell
         cell.imageView.layer.cornerRadius = cell.imageView.frame.height / 2
         cell.imageView.contentMode = .scaleAspectFill
-        
-        //cell.imageView.set = searchResponse?.top[indexPath.row].image_url
-        
         return cell
     }
     
