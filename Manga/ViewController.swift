@@ -42,7 +42,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         activityIndicator.isHidden = true
         activityIndicator.hidesWhenStopped = true
-        //setUpSearchBar()//вызов SearchBar()
+        setUpSearchBar()//вызов SearchBar()
         collectionView.refreshControl = myRefreshControl //подгрузка refreshControl()
         collectionView.dataSource = self//вызов collectionView()
         collectionView.delegate = self
@@ -66,13 +66,13 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }//networkService.request(urlString: urlString) {
     }//override func viewDidLoad() {
     
-//    private func setUpMangas() {
-//        currentMangasArray = mangasArray
-//    }
-//
-//    private func setUpSearchBar() {
-//        searchBar.delegate = self
-//    }
+    private func setUpMangas() {
+        currentMangasArray = mangasArray
+    }
+
+    private func setUpSearchBar() {
+        searchBar.delegate = self
+    }
     
     /*
      // MARK: - CollectionView Data
