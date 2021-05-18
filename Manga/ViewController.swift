@@ -39,7 +39,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         activityIndicator.isHidden = true
         activityIndicator.hidesWhenStopped = true
         setUpSearchBar()//вызов SearchBar()
@@ -80,22 +79,20 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     // Collection
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        //pageNumber+=1
         return currentMangasArray.count
-        //return searchResponse?.top.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CustomCollectionViewCell
         
         let imageLink = currentMangasArray[indexPath.row].image_url
-        //let imageLink = searchResponse?.top[indexPath.row].image_url
         
         cell.nameLabel.text = currentMangasArray[indexPath.row].title.capitalized
-        //cell.nameLabel.text = searchResponse?.top[indexPath.row].title.capitalized
         
         cell.imageView.downloaded(from: imageLink)
         
-        cell.imageView.clipsToBounds = true//imageView из аутлета текста в CustomCollectionViewCell
+        cell.imageView.clipsToBounds = true
         cell.imageView.layer.cornerRadius = cell.imageView.frame.height / 2
         cell.imageView.contentMode = .scaleAspectFill
         return cell
@@ -131,31 +128,35 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         let contentHight = scrollView.contentSize.height
         if offsetY > contentHight - scrollView.frame.height {
             if !fetchingMore {
-                pageNumber+=1
                 beginBatchFetch()
             }
         }
     }
     
     func beginBatchFetch() {
+        //let urlString = "https://api.jikan.moe/v3/top/manga/\(pageNumber)"
         //pageNumber+=1
-        let urlString = "https://api.jikan.moe/v3/top/manga/\(pageNumber)"
         fetchingMore = true
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
         
-        //fetchingAPI data here!!!
-        networkService.request(urlString: urlString) { (response, error) in
-        }
+        pageNumber += 1//for pagination
+        //pageNumber = 1//for refresh
+        //self.collectionView.reloadData()
+        //sender.endRefreshing()
+        let urlString = "https://api.jikan.moe/v3/top/manga/\(pageNumber)"//my api link
+        networkService.request(urlString: urlString) { [weak self] (searchResponse, error) in
+            self?.searchResponse = searchResponse//its very impotans string отвечает за хранение данных
+            self?.collectionView.reloadData()
+        }//networkService.request(urlString: urlString) {
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {//timer 1 second
-            //let newItems = (self.items.count...self.items.count + 12).map { index in index}
-            //let newManga = (self.mangasArray.count).map { index in index }
-            //self.mangasArray.append(contentsOf: newManga)
-            //let urlString = "https://api.jikan.moe/v3/top/manga/\(pageNumber)"
-            //networkService.request(urlString: urlString) { (response, error) in
-            //self.searchResponse = self.searchResponse
-            var newManga = self.searchResponse!.top//передача данных для хранения
+        
+        //self.networkService.request(urlString: urlString) { (response, error) in
+        //}
+        //fetchingAPI data here!!!
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+            let newManga = self.searchResponse!.top//передача данных для хранения or var
             self.currentMangasArray.append(contentsOf: newManga)//добавление данных в конец массива
             self.activityIndicator.stopAnimating()
             self.fetchingMore = false
@@ -164,14 +165,14 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     @objc func refresh(sender: UIRefreshControl) {//refresh controll i need to closue func in this
-        pageNumber += 1//for pagination
+        pageNumber = 1//for pagination
         //pageNumber = 1//for refresh
         //self.collectionView.reloadData()
         sender.endRefreshing()
         let urlString = "https://api.jikan.moe/v3/top/manga/\(pageNumber)"//my api link
         networkService.request(urlString: urlString) { [weak self] (searchResponse, error) in
-            self?.searchResponse = searchResponse//its very impotans string отвечает за хранение данных
-            self?.collectionView.reloadData()
+        self?.searchResponse = searchResponse//its very impotans string отвечает за хранение данных
+        self?.collectionView.reloadData()
         }//networkService.request(urlString: urlString) {
     }
 }
