@@ -42,7 +42,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         activityIndicator.isHidden = true
         activityIndicator.hidesWhenStopped = true
-        setUpSearchBar()//вызов SearchBar()
+        //setUpSearchBar()//вызов SearchBar()
         collectionView.refreshControl = myRefreshControl //подгрузка refreshControl()
         collectionView.dataSource = self//вызов collectionView()
         collectionView.delegate = self
@@ -56,7 +56,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         let urlString = "https://api.jikan.moe/v3/top/manga/\(pageNumber)"//my api link
         //network request
         networkService.request(urlString: urlString) { [weak self] (searchResponse, error) in
-            self?.searchResponse = searchResponse//its very impotans string отвечает за хранение данных
+            //self?.searchResponse?.top = searchResponse//its very impotans string отвечает за хранение данных
             //guard let mangasArray = searchResponse?.top else {return}
             self?.mangasArray = searchResponse!.top//Заполнение массива для вывода, данными
             //guard let currentMangasArray = searchResponse?.top else {return}
@@ -66,13 +66,13 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }//networkService.request(urlString: urlString) {
     }//override func viewDidLoad() {
     
-    private func setUpMangas() {
-        currentMangasArray = mangasArray
-    }
-    
-    private func setUpSearchBar() {
-        searchBar.delegate = self
-    }
+//    private func setUpMangas() {
+//        currentMangasArray = mangasArray
+//    }
+//
+//    private func setUpSearchBar() {
+//        searchBar.delegate = self
+//    }
     
     /*
      // MARK: - CollectionView Data
@@ -80,20 +80,21 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     // Collection
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //return currentMangasArray.count
-        return searchResponse?.top.count ?? 0
+        return currentMangasArray.count
+        //return searchResponse?.top.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CustomCollectionViewCell
         
-        //let imageLink = currentMangasArray[indexPath.row].image_url
-        let imageLink = searchResponse?.top[indexPath.row].image_url
+        let imageLink = currentMangasArray[indexPath.row].image_url
+        //let imageLink = searchResponse?.top[indexPath.row].image_url
         
-        //cell.nameLabel.text = currentMangasArray[indexPath.row].title.capitalized
-        cell.nameLabel.text = searchResponse?.top[indexPath.row].title.capitalized
+        cell.nameLabel.text = currentMangasArray[indexPath.row].title.capitalized
+        //cell.nameLabel.text = searchResponse?.top[indexPath.row].title.capitalized
         
-        cell.imageView.downloaded(from: imageLink!)
+        cell.imageView.downloaded(from: imageLink)
+        
         cell.imageView.clipsToBounds = true//imageView из аутлета текста в CustomCollectionViewCell
         cell.imageView.layer.cornerRadius = cell.imageView.frame.height / 2
         cell.imageView.contentMode = .scaleAspectFill
@@ -130,13 +131,14 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         let contentHight = scrollView.contentSize.height
         if offsetY > contentHight - scrollView.frame.height {
             if !fetchingMore {
+                pageNumber+=1
                 beginBatchFetch()
             }
         }
     }
     
     func beginBatchFetch() {
-        pageNumber+=1
+        //pageNumber+=1
         let urlString = "https://api.jikan.moe/v3/top/manga/\(pageNumber)"
         fetchingMore = true
         activityIndicator.isHidden = false
@@ -153,7 +155,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             //let urlString = "https://api.jikan.moe/v3/top/manga/\(pageNumber)"
             //networkService.request(urlString: urlString) { (response, error) in
             //self.searchResponse = self.searchResponse
-            let newManga = self.searchResponse!.top//передача данных для хранения
+            var newManga = self.searchResponse!.top//передача данных для хранения
             self.currentMangasArray.append(contentsOf: newManga)//добавление данных в конец массива
             self.activityIndicator.stopAnimating()
             self.fetchingMore = false
