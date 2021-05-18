@@ -12,4 +12,5 @@ class CustomCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var imageView: UIImageView!//аутлет картинки
     @IBOutlet weak var nameLabel: UILabel!//аутлет текста
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 }

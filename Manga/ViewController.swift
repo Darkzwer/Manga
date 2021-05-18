@@ -13,7 +13,6 @@ import Alamofire
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate {
     var mangasArray = [Manga]()//var for jsonData
     var currentMangasArray = [Manga]()//update collection
-    var items = [0, 1, 2, 3, 4, 5]//new data
     var fetchingMore = false
     //var pullToRefresh = PullToRefresh()
     
@@ -34,10 +33,13 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     var pageNumber = 1//создание variable for pagination
 
     @IBOutlet weak var collectionView: UICollectionView!////аутлет collection view
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var searchBar: UISearchBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        activityIndicator.isHidden = true
+        activityIndicator.hidesWhenStopped = true
         setUpSearchBar()//вызов SearchBar()
         collectionView.refreshControl = myRefreshControl //подгрузка refreshControl()
         collectionView.dataSource = self//вызов collectionView()
@@ -133,7 +135,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
      */
     
     //pagination
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {//watching
         let offsetY = scrollView.contentOffset.y
         let contentHight = scrollView.contentSize.height
         if offsetY > contentHight - scrollView.frame.height {
@@ -144,12 +146,15 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func beginBatchFetch() {
+        pageNumber+=1
         let urlString = "https://api.jikan.moe/v3/top/manga/\(pageNumber)"
         fetchingMore = true
-        pageNumber+=1
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
         
         //fetchingAPI data here!!!
         networkService.request(urlString: urlString) { (response, error) in
+            //self.searchResponse = self.searchResponse
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {//timer 1 second
@@ -158,19 +163,20 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             //self.mangasArray.append(contentsOf: newManga)
             //let urlString = "https://api.jikan.moe/v3/top/manga/\(pageNumber)"
             //networkService.request(urlString: urlString) { (response, error) in
+            //self.searchResponse = self.searchResponse
             let newManga = self.searchResponse!.top//передача данных для хранения
             self.currentMangasArray.append(contentsOf: newManga)//добавление данных в конец массива
+            self.activityIndicator.stopAnimating()
             self.fetchingMore = false
             self.collectionView.reloadData()
         })
     }
-//}in video
     
     @objc func refresh(sender: UIRefreshControl) {//refresh controll i need to closue func in this
-        //pageNumber+=1//for pagination
+//        pageNumber+=1//for pagination
         self.collectionView.reloadData()
         sender.endRefreshing()
-        print(pageNumber)
+//        print(pageNumber)
         let urlString = "https://api.jikan.moe/v3/top/manga/\(pageNumber)"//my api link
         networkService.request(urlString: urlString) { [weak self] (searchResponse, error) in
             self?.searchResponse = searchResponse//its very impotans string отвечает за хранение данных

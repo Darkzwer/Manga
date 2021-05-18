@@ -40,6 +40,9 @@
                                                 <outlet property="delegate" destination="BYZ-38-t0r" id="Llh-SN-Dgh"/>
                                             </connections>
                                         </searchBar>
+                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="iRo-OA-cc2">
+                                            <rect key="frame" x="197" y="744" width="20" height="20"/>
+                                        </activityIndicatorView>
                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="tjm-eT-fWb">
                                             <rect key="frame" x="0.0" y="55" width="414" height="719"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -98,9 +101,11 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="tjm-eT-fWb" secondAttribute="trailing" id="2FW-ho-alR"/>
+                                        <constraint firstItem="iRo-OA-cc2" firstAttribute="centerX" secondItem="fNc-s3-XMB" secondAttribute="centerX" id="B4Z-HX-ar7"/>
                                         <constraint firstItem="tjm-eT-fWb" firstAttribute="leading" secondItem="fNc-s3-XMB" secondAttribute="leading" id="Bbt-Jm-ga1"/>
                                         <constraint firstItem="tjm-eT-fWb" firstAttribute="top" secondItem="fNc-s3-XMB" secondAttribute="top" constant="55" id="drE-cf-YYE"/>
                                         <constraint firstAttribute="bottom" secondItem="tjm-eT-fWb" secondAttribute="bottom" id="sRf-tB-H3Z"/>
+                                        <constraint firstAttribute="bottom" secondItem="iRo-OA-cc2" secondAttribute="bottom" constant="10" id="wVL-Xr-aN1"/>
                                     </constraints>
                                 </view>
                                 <blurEffect style="light"/>
@@ -121,6 +126,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="cCt-jQ-3GK"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="iRo-OA-cc2" id="S9K-2y-44I"/>
                         <outlet property="collectionView" destination="tjm-eT-fWb" id="g2M-6K-tHj"/>
                         <outlet property="searchBar" destination="wyt-Ep-DEC" id="EUw-3f-qOd"/>
                         <segue destination="qAG-GE-GvR" kind="show" identifier="showDetails" id="Mo7-jk-oUF"/>
