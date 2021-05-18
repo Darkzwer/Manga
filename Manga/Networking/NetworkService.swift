@@ -24,8 +24,8 @@ class NetworkService {
                 //let someString = String(data: data, encoding: .utf8)//проверка получения данных
                 //print(someString ?? "no data")//вывод данных в консоль
                 do {
-                    let tracks = try JSONDecoder().decode(SearchResponse.self, from: data)//декодирование полученных данных 56:15
-                    completion(tracks, nil)
+                    let mangas = try JSONDecoder().decode(SearchResponse.self, from: data)//декодирование полученных данных 56:15
+                    completion(mangas, nil)
                 } catch let jsonError {
                     print("Failed to decode JSON", jsonError)
                     completion(nil, jsonError)

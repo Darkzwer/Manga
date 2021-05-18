@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		42953489B62615D9496FEAAB /* Pods_Manga.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADF7AD884863B9AF13ACB555 /* Pods_Manga.framework */; };
+		781C517426541A5700713E38 /* OldSearchAndPaginationLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781C517326541A5700713E38 /* OldSearchAndPaginationLogic.swift */; };
 		7822021E2649DBBC00AA8ED5 /* MangaStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7822021D2649DBBC00AA8ED5 /* MangaStats.swift */; };
 		7836ACBB2652800E00153B43 /* WebImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7836ACBA2652800E00153B43 /* WebImageView.swift */; };
 		7886B58D264E89A000602FDF /* ExtendedScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7886B58C264E89A000602FDF /* ExtendedScreenViewController.swift */; };
@@ -30,6 +31,7 @@
 
 /* Begin PBXFileReference section */
 		5F18EEAB30633F4B20BCF9B3 /* Pods-Manga.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Manga.debug.xcconfig"; path = "Target Support Files/Pods-Manga/Pods-Manga.debug.xcconfig"; sourceTree = "<group>"; };
+		781C517326541A5700713E38 /* OldSearchAndPaginationLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldSearchAndPaginationLogic.swift; sourceTree = "<group>"; };
 		7822021D2649DBBC00AA8ED5 /* MangaStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaStats.swift; sourceTree = "<group>"; };
 		7836ACBA2652800E00153B43 /* WebImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebImageView.swift; sourceTree = "<group>"; };
 		7886B58C264E89A000602FDF /* ExtendedScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedScreenViewController.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				78CBECCB264A9A2F00C6AA2E /* NewViewController.swift */,
 				78CBECC9264A8B4B00C6AA2E /* OldViewController.swift */,
 				78EA5C79264D4ACB00FC31FD /* SearchBar.swift */,
+				781C517326541A5700713E38 /* OldSearchAndPaginationLogic.swift */,
 			);
 			path = Manga;
 			sourceTree = "<group>";
@@ -270,6 +273,7 @@
 				78C90C4A26531495002697AF /* LoadingCell.swift in Sources */,
 				78CBECCA264A8B4B00C6AA2E /* OldViewController.swift in Sources */,
 				78B7EBF62646C64200AE0F2F /* AppDelegate.swift in Sources */,
+				781C517426541A5700713E38 /* OldSearchAndPaginationLogic.swift in Sources */,
 				78CBECCE264AA68F00C6AA2E /* SearchResponse.swift in Sources */,
 				7886B58D264E89A000602FDF /* ExtendedScreenViewController.swift in Sources */,
 				78EA5C7C264D665F00FC31FD /* Pull to Refresh.swift in Sources */,

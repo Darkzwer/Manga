@@ -41,7 +41,7 @@
                                             </connections>
                                         </searchBar>
                                         <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="iRo-OA-cc2">
-                                            <rect key="frame" x="197" y="744" width="20" height="20"/>
+                                            <rect key="frame" x="197" y="751" width="20" height="20"/>
                                         </activityIndicatorView>
                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="tjm-eT-fWb">
                                             <rect key="frame" x="0.0" y="55" width="414" height="719"/>
@@ -105,7 +105,7 @@
                                         <constraint firstItem="tjm-eT-fWb" firstAttribute="leading" secondItem="fNc-s3-XMB" secondAttribute="leading" id="Bbt-Jm-ga1"/>
                                         <constraint firstItem="tjm-eT-fWb" firstAttribute="top" secondItem="fNc-s3-XMB" secondAttribute="top" constant="55" id="drE-cf-YYE"/>
                                         <constraint firstAttribute="bottom" secondItem="tjm-eT-fWb" secondAttribute="bottom" id="sRf-tB-H3Z"/>
-                                        <constraint firstAttribute="bottom" secondItem="iRo-OA-cc2" secondAttribute="bottom" constant="10" id="wVL-Xr-aN1"/>
+                                        <constraint firstAttribute="bottom" secondItem="iRo-OA-cc2" secondAttribute="bottom" constant="3" id="wVL-Xr-aN1"/>
                                     </constraints>
                                 </view>
                                 <blurEffect style="light"/>
