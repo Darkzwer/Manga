@@ -7,8 +7,11 @@ use_frameworks!
 
 # Pods for Manga
 
+pod 'ReachabilitySwift'
+pod 'R.swift'
+pod 'SwiftLint'
 pod 'Alamofire'
-#pod 'ResponseDetective'
-
+pod 'SDWebImage'
+pod 'ResponseDetective'
+pod 'ImageLoader'
 end
-

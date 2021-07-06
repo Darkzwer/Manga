@@ -1,16 +1,46 @@
 PODS:
   - Alamofire (4.9.1)
+  - ImageLoader (0.14.0)
+  - R.swift (5.4.0):
+    - R.swift.Library (~> 5.3.0)
+  - R.swift.Library (5.3.0)
+  - ReachabilitySwift (5.0.0)
+  - ResponseDetective (1.4.0)
+  - SDWebImage (5.11.1):
+    - SDWebImage/Core (= 5.11.1)
+  - SDWebImage/Core (5.11.1)
+  - SwiftLint (0.43.1)
 
 DEPENDENCIES:
   - Alamofire
+  - ImageLoader
+  - R.swift
+  - ReachabilitySwift
+  - ResponseDetective
+  - SDWebImage
+  - SwiftLint
 
 SPEC REPOS:
   trunk:
     - Alamofire
+    - ImageLoader
+    - R.swift
+    - R.swift.Library
+    - ReachabilitySwift
+    - ResponseDetective
+    - SDWebImage
+    - SwiftLint
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  ImageLoader: 56f57e35d6ed26a74183dc2e472133b4b22eb7b9
+  R.swift: c533450b0f7dc494e0993f5f1a1db925d84c3006
+  R.swift.Library: 0fc583cb55a99e28901299cc451614cad1161962
+  ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
+  ResponseDetective: bfa12c55416a9167e84a1419108fab87c68c1e33
+  SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
+  SwiftLint: 99f82d07b837b942dd563c668de129a03fc3fb52
 
-PODFILE CHECKSUM: a811238d0ab33a1ae2212abd5f11a735f105eefc
+PODFILE CHECKSUM: 0ced10f704c7cbfa43e9f28447f8ed897ecc4c83
 
 COCOAPODS: 1.10.1

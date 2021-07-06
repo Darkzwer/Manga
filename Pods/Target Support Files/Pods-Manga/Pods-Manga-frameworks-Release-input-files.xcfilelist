@@ -1,2 +1,7 @@
 ${PODS_ROOT}/Target Support Files/Pods-Manga/Pods-Manga-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework
+${BUILT_PRODUCTS_DIR}/ImageLoader/ImageLoader.framework
+${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework
+${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework
+${BUILT_PRODUCTS_DIR}/ResponseDetective/ResponseDetective.framework
+${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework
